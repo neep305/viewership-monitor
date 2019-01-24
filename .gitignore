@@ -1,0 +1,13 @@
+*.pyc
+
+# .vscode
+.vscode
+
+# __pycache__
+__pycache__
+
+# csv
+csv
+
+# example
+example

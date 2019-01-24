@@ -1,0 +1,2 @@
+LIVE = 'L'
+MYSHOP = 'T'
