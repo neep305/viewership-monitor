@@ -27,7 +27,8 @@ class MbsCrawler:
         self.id = id
         self.pwd = pwd
         self.type = type
-        self.driver = self.get_firefox_driver()
+        # self.driver = self.get_firefox_driver()
+        self.driver = self.get_chrome_driver()
 
     def login_by_selenium(self):
         driver = self.driver
