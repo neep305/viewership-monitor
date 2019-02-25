@@ -28,8 +28,9 @@ def main():
     # except (KeyboardInterrupt, SystemExit):
     #     scheduler.shutdown()
 
-    mbs_live.run_excel_download()
-    mbs_live.convert_to_csv()
+    # mbs_live.run_excel_download()
+    # mbs_live.convert_to_csv()
+    mbs_live.take_screenshot()
 
 def convert_to_csv(type):
     from datetime import datetime,timedelta

@@ -199,3 +199,10 @@ class MbsCrawler:
             os.remove('./'+file_to_convert)
         else:
             raise FileNotFoundError("excel file doesn't exist in the path")
+    
+    def take_screenshot(self):
+        driver = self.driver
+
+        driver.get('https://www.naver.com')
+        
+        driver.take_screenshot('test.png')
