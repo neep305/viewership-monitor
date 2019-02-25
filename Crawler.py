@@ -151,12 +151,6 @@ class MbsCrawler:
                 os.mkdir('./csv')
             
             path_to_export = './csv/'
-            # path_to_export = None
-
-            # if os.name == 'nt':
-            #     path_to_export = './csv/'
-            # else:
-            #     path_to_export = '/applications/anaconda3/mbs/data/'
 
             if df_to_csv['srvc'][1] == 'T':
                 df_to_csv[['cnt','time','srvc']].to_csv(path_to_export + str_today + '_myshop_channel_hourly.csv', header=False)
