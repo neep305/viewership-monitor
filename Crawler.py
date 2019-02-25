@@ -27,7 +27,6 @@ class MbsCrawler:
         self.id = id
         self.pwd = pwd
         self.type = type
-        # self.driver = self.get_firefox_driver()
         self.driver = self.get_chrome_driver()
 
     def login_by_selenium(self):
@@ -116,7 +115,7 @@ class MbsCrawler:
         
         options.add_argument('--ignore-certificate-errors')
         options.add_argument("--test-type")
-        options.add_argument("--headless")
+        # options.add_argument("--headless")
         options.add_argument("--disable-gpu")
         options.add_argument("--window-size=1366x768")
         
