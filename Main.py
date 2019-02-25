@@ -28,65 +28,9 @@ def main():
     # except (KeyboardInterrupt, SystemExit):
     #     scheduler.shutdown()
 
-    # mbs_live.run_excel_download()
-    # mbs_live.convert_to_csv()
-    mbs_live.take_screenshot()
+    mbs_live.run_excel_download()
+    mbs_live.convert_to_csv()
 
-def convert_to_csv(type):
-    from datetime import datetime,timedelta
-    import pandas as pd
-
-    today = datetime.today() - timedelta(days=1)
-    str_today = today.strftime('%Y%m%d')
-
-    file_to_convert = None
-
-    if type is const.LIVE:
-        file_to_convert = '유형별시청형태_채널_GS SHOP_시간별_1d_' + str_today + '.xlsx'
-    else:
-        file_to_convert = '유형별시청형태_채널_GS MY SHOP_시간별_1d_' + str_today + '.xlsx'
-
-    if os.path.exists('./' + file_to_convert) == True:
-        logger.info('file to convert is exist : ' + file_to_convert)
-        
-        excel_result = pd.read_excel('./' + file_to_convert, sheet_name='유형별>시간별_시청가구상세테이블',index_col=None, header=2)
-        
-        index =  range(1, len(excel_result))
-        temp = []
-        for i in index:
-            temp.append(i)
-
-        rearranged_excel = pd.DataFrame(excel_result)
-        rearranged_excel.columns = ['time','cnt']
-
-        df = rearranged_excel.reset_index()
-
-        df_to_csv = df.iloc[1:,].assign(srvc=type)
-
-        df_to_csv.iloc[:,1] = str_today + df_to_csv['time'].str.replace(r'(시|분)','')
-
-        #######################################
-        #           Extract CSV
-        #######################################
-        path_to_extract = './csv/'
-        if os.path.exists('./csv') != True:
-            os.mkdir('./csv')
-        # if os.name == 'nt':
-            # path_to_extract = './csv/'
-            # if os.path.exists('./csv') != True:
-            #     os.mkdir('./csv')
-        # else:
-        #     # file_path = '/applications/anaconda3/mbs/data/'
-
-        if df_to_csv['srvc'][1] == 'T':
-            df_to_csv[['cnt','time','srvc']].to_csv(path_to_extract + str_today + '_myshop_channel_hourly.csv', header=False)
-        else:
-            df_to_csv[['cnt','time','srvc']].to_csv(path_to_extract + str_today + '_gsshop_channel_hourly.csv', header=False)
-
-        os.remove('./'+file_to_convert)
-    else:
-        raise FileNotFoundError("excel file doesn't exist in the path")
 if __name__ == "__main__":
     
     main()
-    # convert_to_csv(const.LIVE)
