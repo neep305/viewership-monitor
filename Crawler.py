@@ -116,7 +116,7 @@ class MbsCrawler:
         time.sleep(3)
         self.headless_srch_download_btn()
 
-    def replace_text(str):
+    def replace_text(self.str):
         return re.sub(r'(시|분)','',str)
 
     def convert_to_csv(self):
@@ -138,10 +138,10 @@ class MbsCrawler:
             excel_result = pd.read_excel('./' + file_to_convert, sheet_name='유형별>시간별_시청가구상세테이블',index_col=None, header=2)
             
             rearranged_excel = pd.DataFrame(excel_result)
-            rearranged_excel.columns = ['time','cnt']
+            # rearranged_excel.columns = ['time','cnt']
 
             df_to_csv = rearranged_excel.reset_index().dropna(axis=1).iloc[1:,].assign(srvc='T')
-
+            df_to_csv.rename({'조회시간':'time','시청가구':'cnt'},axis=1)
             df_to_csv['time'] = df_to_csv['time'].apply(lambda x: replace_text(x))
 
             #######################################
