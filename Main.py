@@ -28,7 +28,6 @@ def main():
     # except (KeyboardInterrupt, SystemExit):
     #     scheduler.shutdown()
 
-    # 테스트용
     mbs_live.run_excel_download()
     mbs_live.convert_to_csv()
 
@@ -68,14 +67,15 @@ def convert_to_csv(type):
         #######################################
         #           Extract CSV
         #######################################
-        path_to_extract = None
-
-        if os.name == 'nt':
-            path_to_extract = './csv/'
-            if os.path.exists('./csv') != True:
-                os.mkdir('./csv')
-        else:
-            file_path = '/applications/anaconda3/mbs/data/'
+        path_to_extract = './csv/'
+        if os.path.exists('./csv') != True:
+            os.mkdir('./csv')
+        # if os.name == 'nt':
+            # path_to_extract = './csv/'
+            # if os.path.exists('./csv') != True:
+            #     os.mkdir('./csv')
+        # else:
+        #     # file_path = '/applications/anaconda3/mbs/data/'
 
         if df_to_csv['srvc'][1] == 'T':
             df_to_csv[['cnt','time','srvc']].to_csv(path_to_extract + str_today + '_myshop_channel_hourly.csv', header=False)
