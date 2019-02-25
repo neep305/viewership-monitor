@@ -18,6 +18,8 @@ import Constants as const
 
 import pandas as pd
 
+import re
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -75,37 +77,6 @@ class MbsCrawler:
             logger.info('Automation finished')
             self.driver.quit()
 
-    # headless firefox driver setting
-    def get_firefox_driver(self):
-
-        driver = None
-
-        profile = webdriver.FirefoxProfile()
-
-        profile.set_preference("browser.download.panel.shown", False)
-        profile.set_preference("browser.download.manager.showWhenStarting",False)
-        profile.set_preference("browser.helperApps.neverAsk.openFile", 'application/msexcel')
-        profile.set_preference("browser.helperApps.neverAsk.saveToDisk", 'application/msexcel')
-        profile.set_preference("browser.download.folderList", 2)
-
-        options = Options()
-        options.set_headless(headless=True)
-
-        # path_to_download = None
-        # if os.name == 'nt':
-        #     path_to_download = os.getcwd()
-        # else:
-        #     path_to_download = '/applications/anaconda3/mbs/data/'
-        
-        profile.set_preference("browser.download.dir", os.getcwd())
-
-        driver = webdriver.Firefox(executable_path=os.getcwd() + '\\driver\\geckodriver.exe', firefox_profile=profile)
-        
-        driver.set_page_load_timeout(50)
-        driver.set_script_timeout(70)
-
-        return driver
-
     # headless chrome driver setting
     def get_chrome_driver(self):
 
@@ -145,6 +116,9 @@ class MbsCrawler:
         time.sleep(3)
         self.headless_srch_download_btn()
 
+    def replace_text(str):
+        return re.sub(r'(시|분)','',str)
+
     def convert_to_csv(self):
         
         today = datetime.today() - timedelta(days=1)
@@ -163,19 +137,12 @@ class MbsCrawler:
             
             excel_result = pd.read_excel('./' + file_to_convert, sheet_name='유형별>시간별_시청가구상세테이블',index_col=None, header=2)
             
-            index =  range(1, len(excel_result))
-            temp = []
-            for i in index:
-                temp.append(i)
-
             rearranged_excel = pd.DataFrame(excel_result)
             rearranged_excel.columns = ['time','cnt']
 
-            df = rearranged_excel.reset_index()
+            df_to_csv = rearranged_excel.reset_index().dropna(axis=1).iloc[1:,].assign(srvc='T')
 
-            df_to_csv = df.iloc[1:,].assign(srvc=type)
-
-            df_to_csv.iloc[:,1] = str_today + df_to_csv['time'].str.replace(r'(시|분)','')
+            df_to_csv['time'] = df_to_csv['time'].apply(lambda x: replace_text(x))
 
             #######################################
             #           Extract CSV
@@ -199,10 +166,3 @@ class MbsCrawler:
             os.remove('./'+file_to_convert)
         else:
             raise FileNotFoundError("excel file doesn't exist in the path")
-    
-    def take_screenshot(self):
-        driver = self.driver
-
-        driver.get('https://www.naver.com')
-        
-        driver.take_screenshot('test.png')
