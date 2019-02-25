@@ -140,8 +140,8 @@ class MbsCrawler:
             rearranged_excel = pd.DataFrame(excel_result)
             # rearranged_excel.columns = ['time','cnt']
 
-            df_to_csv = rearranged_excel.reset_index().dropna(axis=1).iloc[1:,].assign(srvc='T')
-            df_to_csv.rename({'조회시간':'time_old','시청가구':'cnt'},axis=1)
+            df_arranged = rearranged_excel.reset_index().dropna(axis=1).iloc[1:,].assign(srvc='T')
+            df_to_csv = df_arranged.rename({'조회시간':'time_old','시청가구':'cnt'},axis=1)
             df_to_csv['time'] = df_to_csv['time_old'].apply(lambda x: self.replace_text(x))
 
             #######################################
