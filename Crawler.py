@@ -116,7 +116,7 @@ class MbsCrawler:
         time.sleep(3)
         self.headless_srch_download_btn()
 
-    def replace_text(self.str):
+    def replace_text(self, str):
         return re.sub(r'(시|분)','',str)
 
     def convert_to_csv(self):
