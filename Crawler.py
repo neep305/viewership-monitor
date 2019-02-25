@@ -142,7 +142,7 @@ class MbsCrawler:
 
             df_to_csv = rearranged_excel.reset_index().dropna(axis=1).iloc[1:,].assign(srvc='T')
             df_to_csv.rename({'조회시간':'time','시청가구':'cnt'},axis=1)
-            df_to_csv['time'] = df_to_csv['time'].apply(lambda x: replace_text(x))
+            df_to_csv['time'] = df_to_csv['time'].apply(lambda x: self.replace_text(x))
 
             #######################################
             #           Extract CSV
