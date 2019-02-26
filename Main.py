@@ -15,11 +15,11 @@ def main():
     mbs_data = MbsCrawler('mbsgstc9','@gstcpw9',const.MYSHOP)
 
     scheduler = BlockingScheduler()
-    scheduler.add_job(mbs_data.run_excel_download,trigger='cron',hour='1',minute='0')
-    scheduler.add_job(mbs_live.run_excel_download,trigger='cron',hour='1',minute='5')
+    scheduler.add_job(mbs_data.run_excel_download,trigger='cron',hour='0',minute='05')
+    scheduler.add_job(mbs_live.run_excel_download,trigger='cron',hour='0',minute='10')
     
-    scheduler.add_job(mbs_live.convert_to_csv,trigger='cron',hour='1',minute='15')
-    scheduler.add_job(mbs_data.convert_to_csv,trigger='cron',hour='1',minute='17')
+    scheduler.add_job(mbs_live.convert_to_csv,trigger='cron',hour='0',minute='15')
+    scheduler.add_job(mbs_data.convert_to_csv,trigger='cron',hour='0',minute='17')
 
     logger.info('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
 
