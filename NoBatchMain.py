@@ -17,7 +17,7 @@ def main():
     channel = sys.argv[1]
     logger.info('selected channel : {}'.format(channel))
     
-    if channel is 'L' or channel is 'T':
+    if channel is 'L':
         mbs_live = MbsCrawler('mbsgs9','@gspw9',const.LIVE)
         mbs_live.run_excel_download()
         mbs_live.convert_to_csv()
