@@ -134,10 +134,10 @@ class MbsCrawler:
         else:
             file_to_convert = '유형별시청형태_채널_GS MY SHOP_시간별_1d_' + str_today + '.xlsx'
 
-        if os.path.exists('./xlsx/' + file_to_convert) == True:
+        if os.path.exists('./' + file_to_convert) == True:
             logger.info('file to convert is exist : ' + file_to_convert)
             
-            excel_result = pd.read_excel('./xlsx/' + file_to_convert, sheet_name='유형별>시간별_시청가구상세테이블',index_col=None, header=2)
+            excel_result = pd.read_excel('./' + file_to_convert, sheet_name='유형별>시간별_시청가구상세테이블',index_col=None, header=2)
             
             rearranged_excel = pd.DataFrame(excel_result)
             
@@ -146,7 +146,7 @@ class MbsCrawler:
             
             df_to_csv['time'] = df_to_csv['time_old'].apply(lambda x: self.replace_text(x))
             print(df_to_csv)
-            
+
             #######################################
             #           Extract CSV
             #######################################
