@@ -16,3 +16,12 @@ $ source venv/bin/activate
 ```shell
 $ pip install -r requirements.txt
 ```
+
+### 실패 시 수작업 
+> NoBatch 실행
+```python
+# 라이브 실행 시
+$ python NoBatchMain.py L
+# 데이터 홈쇼핑 실행 시
+$ python NoBatchMain.py T
+```
