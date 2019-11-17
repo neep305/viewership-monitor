@@ -25,3 +25,10 @@ $ python NoBatchMain.py L
 # 데이터 홈쇼핑 실행 시
 $ python NoBatchMain.py T
 ```
+
+### 서버 접근
+```shell
+$ sudo -i
+$ su - service
+
+```
