@@ -27,8 +27,11 @@ $ python NoBatchMain.py T
 ```
 
 ### 서버 접근
+> sudo권한으로 변경
 ```shell
 $ sudo -i
 $ su - service
+
+$ cd applications
 
 ```
